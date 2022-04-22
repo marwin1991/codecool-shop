@@ -1,7 +1,7 @@
-package com.codecool.codecoolshopspring.dao.implementation;
+package com.codecool.codecoolshopspring.repository.implementation;
 
 
-import com.codecool.codecoolshopspring.dao.ProductDao;
+import com.codecool.codecoolshopspring.repository.ProductRepository;
 import com.codecool.codecoolshopspring.model.Product;
 import com.codecool.codecoolshopspring.model.ProductCategory;
 import com.codecool.codecoolshopspring.model.Supplier;
@@ -9,41 +9,42 @@ import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Component
-public class ProductDaoMem implements ProductDao {
+public class ProductRepositoryMem implements ProductRepository {
 
     private List<Product> data = new ArrayList<>();
 
     @Override
-    public void add(Product product) {
+    public void save(Product product) {
         product.setId(data.size() + 1);
         data.add(product);
     }
 
     @Override
-    public Product find(int id) {
-        return data.stream().filter(t -> t.getId() == id).findFirst().orElse(null);
+    public Optional<Product> findById(int id) {
+        return data.stream().filter(t -> t.getId() == id).findFirst();
     }
 
     @Override
-    public void remove(int id) {
-        data.remove(find(id));
+    public void deleteById(int id) {
+        data.remove(findById(id));
     }
 
     @Override
-    public List<Product> getAll() {
+    public List<Product> findAll() {
         return data;
     }
 
     @Override
-    public List<Product> getBy(Supplier supplier) {
+    public List<Product> findAllBySupplier(Supplier supplier) {
         return data.stream().filter(t -> t.getSupplier().equals(supplier)).collect(Collectors.toList());
     }
 
     @Override
-    public List<Product> getBy(ProductCategory productCategory) {
+    public List<Product> findAllByProductCategory(ProductCategory productCategory) {
         return data.stream().filter(t -> t.getProductCategory().equals(productCategory)).collect(Collectors.toList());
     }
 }

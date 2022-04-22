@@ -4,10 +4,10 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class CodecoolShopSpringApplication {
+public class CodeCoolShopSpringApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(CodecoolShopSpringApplication.class, args);
+		SpringApplication.run(CodeCoolShopSpringApplication.class, args);
 	}
 
 }
